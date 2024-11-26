@@ -1,6 +1,7 @@
 package com.cgvsu.objreader;
 
 import com.cgvsu.math.Vector3f;
+import com.cgvsu.model.Polygon;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -61,6 +62,16 @@ class ObjReaderTest {
 
     @Test
     public void testTriangulatePolygon () {
-        
+        Polygon polygon = new Polygon();
+        ArrayList<Integer> vertex = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            vertex.add(i);
+        }
+        //polygon.setVertexIndices();
+    }
+
+    @Test
+    public void testTriangulateModel () {
+
     }
 }

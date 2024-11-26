@@ -62,27 +62,31 @@ class ObjReaderTest {
     }
 
     @Test
-    public void testTriangulatePolygon1 () {
+    public void testTriangulatePolygon_1 () { // с упорядоченными точками
+        // новый полигон
         Polygon polygon = new Polygon();
         ArrayList<Integer> vertex = new ArrayList<>();
         for (int i = 3; i < 9; i++) {
             vertex.add(i);
-        }
-        polygon.setVertexIndices(vertex);
-        ArrayList<Polygon> faces = Triangulation.triangulatePolygon(polygon);
-        ArrayList<Integer> real = new ArrayList<>();
+        } polygon.setVertexIndices(vertex);
+
+        // список вершин триангулированного полигона
+        ArrayList<Polygon> faces = Triangulation.triangulatePolygon(polygon); // список треугольников
+        ArrayList<Integer> real = new ArrayList<>(); // список вершин
         for (int i = 0; i < faces.size(); i++) {
             real.add(faces.get(i).getVertexIndices().get(0));
             real.add(faces.get(i).getVertexIndices().get(1));
             real.add(faces.get(i).getVertexIndices().get(2));
         }
 
+        // список одидаемых вершин
         ArrayList<Integer> expected = new ArrayList<>();
         for (int i = 4; i < 8; i++) {
             expected.add(3);
             expected.add(i);
             expected.add(i + 1);
         }
+
         Assertions.assertEquals(expected, real);
 
 //        ArrayList<Polygon> expectedFaces = new ArrayList<>();
@@ -96,25 +100,36 @@ class ObjReaderTest {
      }
 
     @Test
-    public void testTriangulatePolygon () {
-        //создание полигона и его триангулция
+    public void testTriangulatePolygon_2 () { // с неупорядоченными точками
+        // новый полигон
         Polygon polygon = new Polygon();
         ArrayList<Integer> vertex = new ArrayList<>();
-        for (int i = 3; i < 8; i++) {
+        for (int i = 3; i < 9; i++) {
             vertex.add(i);
-        } polygon.setVertexIndices(vertex);
-        ArrayList<Polygon> faces = Triangulation.triangulatePolygon(polygon);
-
-        // создание ожидаемого триангулированного полигона
-        ArrayList<Polygon> expectedFaces = new ArrayList<>();
-        for (int i = 4; i < 8; i++) {
-            ArrayList<Integer> expectedVertex = new ArrayList<>();
-            Polygon p = new Polygon();
-
-            expectedVertex.add(3); expectedVertex.add(i); expectedVertex.add(i + 1);
-            p.setVertexIndices(expectedVertex);
-            expectedFaces.add(p);
         }
+        vertex.add(2); vertex.add(1); // уберем упорядоченность
+        polygon.setVertexIndices(vertex);
+
+        // список вершин триангулированного полигона
+        ArrayList<Polygon> faces = Triangulation.triangulatePolygon(polygon);
+        ArrayList<Integer> real = new ArrayList<>();
+        for (int i = 0; i < faces.size(); i++) {
+            real.add(faces.get(i).getVertexIndices().get(0));
+            real.add(faces.get(i).getVertexIndices().get(1));
+            real.add(faces.get(i).getVertexIndices().get(2));
+        }
+
+        // список одидаемых вершин
+        ArrayList<Integer> expected = new ArrayList<>();
+        for (int i = 4; i < 8; i++) {
+            expected.add(3);
+            expected.add(i);
+            expected.add(i + 1);
+        }
+        expected.add(3); expected.add(8); expected.add(2);
+        expected.add(3); expected.add(2); expected.add(1);
+
+        Assertions.assertEquals(expected, real);
     }
 
     @Test

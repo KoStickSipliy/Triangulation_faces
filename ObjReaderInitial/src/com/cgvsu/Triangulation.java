@@ -9,6 +9,11 @@ public class Triangulation {
         int vertexNum = poly.getVertexIndices().size(); // число точек в исходном полигоне
         ArrayList<Polygon> polygons = new ArrayList<Polygon>(); // список треугольных полигонов
 
+        if (poly.getVertexIndices().size() == 3) { // если передан треугольник, то возвращаем его
+            polygons.add(poly);
+            return polygons;
+        }
+
         for (int i = 2; i < vertexNum - 1; i++) {
             ArrayList<Integer> vertex = new ArrayList<>(); // список точек в новом треугольнике
             vertex.add(poly.getVertexIndices().get(0));
@@ -29,17 +34,16 @@ public class Triangulation {
             currPoly.setVertexIndices(vertex);
             polygons.add(currPoly);
         }
-
         return polygons;
     }
     public static ArrayList<Polygon> triangulateModel (ArrayList<Polygon> polygons){
         ArrayList<Polygon> newModelPoly = new ArrayList<Polygon>();
 
         for (int i = 0; i < polygons.size(); i++) {
-            if (polygons.get(i).getVertexIndices().size() < 4) {
-                newModelPoly.add(polygons.get(i));
-                continue;
-            }
+//            if (polygons.get(i).getVertexIndices().size() < 4) {
+//                newModelPoly.add(polygons.get(i));
+//                continue;
+//            }
             newModelPoly.addAll(
                     triangulatePolygon(polygons.get(i))
             );

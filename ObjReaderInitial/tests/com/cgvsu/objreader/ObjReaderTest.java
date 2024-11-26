@@ -79,7 +79,7 @@ class ObjReaderTest {
             real.add(faces.get(i).getVertexIndices().get(2));
         }
 
-        // список одидаемых вершин
+        // список ожидаемых вершин
         ArrayList<Integer> expected = new ArrayList<>();
         for (int i = 4; i < 8; i++) {
             expected.add(3);
@@ -119,7 +119,7 @@ class ObjReaderTest {
             real.add(faces.get(i).getVertexIndices().get(2));
         }
 
-        // список одидаемых вершин
+        // список ожидаемых вершин
         ArrayList<Integer> expected = new ArrayList<>();
         for (int i = 4; i < 8; i++) {
             expected.add(3);
@@ -128,6 +128,30 @@ class ObjReaderTest {
         }
         expected.add(3); expected.add(8); expected.add(2);
         expected.add(3); expected.add(2); expected.add(1);
+
+        Assertions.assertEquals(expected, real);
+    }
+
+    @Test
+    public void testTriangulatePolygon_3 () { // с треугольником
+        // новый полигон
+        Polygon polygon = new Polygon();
+        ArrayList<Integer> vertex = new ArrayList<>();
+        vertex.add(2); vertex.add(1); vertex.add(5);
+        polygon.setVertexIndices(vertex);
+
+        // список вершин триангулированного полигона
+        ArrayList<Polygon> faces = Triangulation.triangulatePolygon(polygon);
+        ArrayList<Integer> real = new ArrayList<>();
+        for (int i = 0; i < faces.size(); i++) {
+            real.add(faces.get(i).getVertexIndices().get(0));
+            real.add(faces.get(i).getVertexIndices().get(1));
+            real.add(faces.get(i).getVertexIndices().get(2));
+        }
+
+        // список ожидаемых вершин
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(2); expected.add(1); expected.add(5);
 
         Assertions.assertEquals(expected, real);
     }

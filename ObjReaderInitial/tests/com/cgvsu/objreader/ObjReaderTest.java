@@ -2,11 +2,15 @@ package com.cgvsu.objreader;
 
 import com.cgvsu.Triangulation;
 import com.cgvsu.math.Vector3f;
+import com.cgvsu.model.Model;
 import com.cgvsu.model.Polygon;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -155,9 +159,32 @@ class ObjReaderTest {
 
         Assertions.assertEquals(expected, real);
     }
+    
+//    Не работают ввиду непонятной мне ошибки с методом read
 
-    @Test
-    public void testTriangulateModel () {
-
-    }
+//    @Test
+//    public void testTriangulateModel_1 () throws IOException {
+//        Path fileName = Path.of("C:\\Users\\linar\\Desktop\\_Костяцкая папка\\__YЧЁБА\\CG\\CGVSU-main\\CGVSU-main\\3DModels\\Faceform\\WrapHand.obj");
+//        String fileContent = Files.readString(fileName);
+//        Model model = ObjReader.read(fileContent);
+//
+//        Model newModel = new Model();
+//        newModel.vertices = model.vertices;
+//        newModel.normals = model.normals;
+//        newModel.textureVertices = model.textureVertices;
+//        newModel.polygons = Triangulation.triangulateModel(model.polygons);
+//
+//        Assertions.assertEquals(model.vertices.size(), 8082);
+//    }
+//    @Test
+//    public void testTriangulateModel_2 () throws IOException {
+//        Path fileName = Path.of("C:\\Users\\linar\\Desktop\\_Костяцкая папка\\__YЧЁБА\\CG\\CGVSU-main\\CGVSU-main\\3DModels\\Faceform\\WrapBody.obj");
+//        String fileContent = Files.readString(fileName);
+//        Model model = ObjReader.read(fileContent);
+//
+//        Model newModel = new Model();
+//        newModel.polygons = Triangulation.triangulateModel(model.polygons);
+//
+//        Assertions.assertEquals(model.vertices.size(), 39760);
+//    }
 }
